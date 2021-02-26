@@ -1,0 +1,18 @@
+{
+  "name": "minecraft_banners_bot",
+  "version": "1.0.0",
+  "description": "A simple bot that loves designing Minecraft banners",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Erina Chavez",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "node-cron": "^2.0.3",
+    "node-p5": "^1.0.3",
+    "node-twitter-api": "^1.8.0"
+  }
+}
