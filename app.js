@@ -1,15 +1,14 @@
 const express = require("express");
 const twitterAPI = require("node-twitter-api");
 const cron = require("node-cron");
-const config = require("./config");
 const sketch = require("./sketch");
 
 const app = express();
 const port = 3000;
 
 var twitter = new twitterAPI({
-  consumerKey: config.consumer_key,
-  consumerSecret: config.consumer_secret
+  consumerKey: process.env.CONSUMER_KEY,
+  consumerSecret: process.env.CONSUMER_SECRET
 });
 
 app.post("/upload", (req, res) => {
@@ -18,8 +17,8 @@ app.post("/upload", (req, res) => {
       "media": req.body.blobDataUrl,
       "isBase64": true,
     },
-    config.access_token,
-    config.access_token_secret,
+    process.env.ACCESS_TOKEN,
+    process.env.ACCESS_TOKEN_SECRET,
     function (error, data, response) {
       let responseBody = JSON.parse(response.body);
 
@@ -42,8 +41,8 @@ app.post("/status", (req, res) => {
       "status": req.body.statusText,
       "media_ids": req.body.mediaId,
     },
-    config.access_token,
-    config.access_token_secret,
+    process.env.ACCESS_TOKEN,
+    process.env.ACCESS_TOKEN_SECRET,
     function (error, data, response) {
       if (error) {
         console.error(`TWEET ERROR ${error.statusCode}: ${JSON.parse(error.data).errors[0].message}`);
