@@ -4,7 +4,14 @@ const cron = require("node-cron");
 const sketch = require("./sketch");
 
 const app = express();
-const port = 3000;
+const server = app.listen(process.env.PORT || 3000, listen);
+
+function listen() {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log(`Minecraft Banners Bot listening at http://${host}:${port}`);
+}
+
 
 var twitter = new twitterAPI({
   consumerKey: process.env.CONSUMER_KEY,
@@ -58,11 +65,6 @@ app.post("/status", (req, res) => {
     }
   );
 });
-
-app.listen(port, () => {
-  console.log(`Minecraft Banners Bot listening at http://localhost:${port}`);
-});
-
 
 cron.schedule("* 3,9,15,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
