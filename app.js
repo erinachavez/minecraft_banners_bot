@@ -5,15 +5,12 @@ const sketch = require("./sketch");
 
 const app = express();
 const server = app.listen(process.env.PORT || 3000, listen);
-
-const host = server.address().address;
-const port = server.address().port;
-const address = `http://${host}:${port}`;
+const address = `http://${server.address().address}:${server.address().port}`;
 
 function listen() {
-  console.log(`Minecraft Banners Bot listening at http://${host}:${port}`);
+  sketch.setAppAddress(address);
+  console.log(`Minecraft Banners Bot listening at ${address}`);
 }
-
 
 var twitter = new twitterAPI({
   consumerKey: process.env.CONSUMER_KEY,
@@ -74,13 +71,8 @@ cron.schedule("*/5 * * * *", () => {
   console.log(`running... ${dateTimeNow.toISOString()}.`);
 }, { timezone: process.env.TZ });
 
-cron.schedule("10 4,10,16,22 * * *", () => {
+cron.schedule("20 4,10,16,22 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();
 }, { timezone: process.env.TZ });
-
-
-module.exports = {
-  address: address
-};

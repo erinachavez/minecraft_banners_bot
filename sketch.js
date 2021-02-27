@@ -17,9 +17,7 @@ const X_OFFSET = (CANVAS_SIZE - BANNER_BIT_WIDTH)/2;
 const Y_OFFSET = (CANVAS_SIZE - BANNER_BIT_HEIGHT)/2;
 
 var layers;
-
-// Create an axios instance.
-const instance = axios.create({ baseURL: app.address });
+var instance;
 
 // Send status text and twitter media id to be tweeted.
 function status(statusText, mediaId) {
@@ -115,4 +113,7 @@ module.exports = {
   drawBanner: function() {
     p5.createSketch(sketch);
   },
+  setAppAddress: function(address) {
+    instance = axios.create({ baseURL: address });
+  }
 }
