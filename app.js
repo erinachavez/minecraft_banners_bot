@@ -6,9 +6,11 @@ const sketch = require("./sketch");
 const app = express();
 const server = app.listen(process.env.PORT || 3000, listen);
 
+var const = server.address().address;
+var const = server.address().port;
+const address = `http://${host}:${port}`;
+
 function listen() {
-  var host = server.address().address;
-  var port = server.address().port;
   console.log(`Minecraft Banners Bot listening at http://${host}:${port}`);
 }
 
@@ -66,13 +68,19 @@ app.post("/status", (req, res) => {
   );
 });
 
+
 cron.schedule("*/5 * * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`running... ${dateTimeNow.toISOString()}.`);
 }, { timezone: process.env.TZ });
 
-cron.schedule("* 4,10,16,22 * * *", () => {
+cron.schedule("10 4,10,16,22 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();
 }, { timezone: process.env.TZ });
+
+
+module.exports = {
+  address: address
+};

@@ -1,6 +1,7 @@
 const p5 = require("node-p5");
 const dyes = require("./dyes");
 const bannerPatterns = require("./banner_patterns");
+const app = require("./app");
 const axios = require("axios");
 
 const BANNER_WIDTH = 20;
@@ -19,7 +20,7 @@ const Y_OFFSET = (CANVAS_SIZE - BANNER_BIT_HEIGHT)/2;
 var layers;
 
 // Create an axios instance.
-const instance = axios.create({ baseURL: "http://localhost:3000" });
+const instance = axios.create({ baseURL: app.address });
 
 // Send status text and twitter media id to be tweeted.
 function status(statusText, mediaId) {
