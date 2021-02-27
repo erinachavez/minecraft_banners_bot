@@ -6,8 +6,8 @@ const sketch = require("./sketch");
 const app = express();
 const server = app.listen(process.env.PORT || 3000, listen);
 
-var const = server.address().address;
-var const = server.address().port;
+const host = server.address().address;
+const port = server.address().port;
 const address = `http://${host}:${port}`;
 
 function listen() {
