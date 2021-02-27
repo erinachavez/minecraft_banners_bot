@@ -4,7 +4,7 @@ const cron = require("node-cron");
 const sketch = require("./sketch");
 
 const app = express();
-const server = app.listen(process.env.PORT || 3000, "127.0.0.1", function() {
+const server = app.listen(process.env.PORT || 3000, process.env.HOST || "127.0.0.1", function() {
   var address = `http://${server.address().address}:${server.address().port}`;
   sketch.setAppAddress(address);
   console.log(`Minecraft Banners Bot listening at ${address}`);
