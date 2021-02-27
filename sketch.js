@@ -1,7 +1,6 @@
 const p5 = require("node-p5");
 const dyes = require("./dyes");
 const bannerPatterns = require("./banner_patterns");
-const app = require("./app");
 const axios = require("axios");
 
 const BANNER_WIDTH = 20;
