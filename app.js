@@ -4,10 +4,10 @@ const cron = require("node-cron");
 const sketch = require("./sketch");
 
 const app = express();
-const server = app.listen(process.env.PORT || 3000, process.env.HOST || "127.0.0.1", function() {
-  var address = `http://${server.address().address}:${server.address().port}`;
-  sketch.setAppAddress(address);
-  console.log(`Minecraft Banners Bot listening at ${address}`);
+const server = app.listen(process.env.PORT || 3000, function() {
+  let port = server.address().port;
+  sketch.setAppPort(port);
+  console.log(`Minecraft Banners Bot listening at http://${server.address().address}:${port}`);
 });
 
 var twitter = new twitterAPI({
@@ -69,7 +69,7 @@ cron.schedule("*/5 * * * *", () => {
   console.log(`running... ${dateTimeNow.toISOString()}.`);
 }, { timezone: process.env.TZ });
 
-cron.schedule("35 4,10,16,22 * * *", () => {
+cron.schedule("* 5,9,15,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();

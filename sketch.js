@@ -113,7 +113,7 @@ module.exports = {
   drawBanner: function() {
     p5.createSketch(sketch);
   },
-  setAppAddress: function(address) {
-    instance = axios.create({ baseURL: address });
+  setAppPort: function(port) {
+    instance = axios.create({ baseURL: `https://minecraft-banners-bot.herokuapp.com/${port}`});
   }
 }
