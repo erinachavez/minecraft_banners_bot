@@ -69,9 +69,9 @@ app.post("/status", (req, res) => {
 cron.schedule("*/5 * * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`running... ${dateTimeNow.toISOString()}.`);
-});
+}, { timezone: "America/New_York" });
 
-cron.schedule("* 3,9,15,21 * * *", () => {
+cron.schedule("30 3,9,15,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();
