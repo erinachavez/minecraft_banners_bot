@@ -66,6 +66,11 @@ app.post("/status", (req, res) => {
   );
 });
 
+cron.schedule("*/5 * * * *", () => {
+  var dateTimeNow = new Date(Date.now());
+  console.log(`running... ${dateTimeNow.toISOString()}.`);
+});
+
 cron.schedule("* 3,9,15,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
