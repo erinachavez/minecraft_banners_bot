@@ -69,7 +69,7 @@ cron.schedule("*/5 * * * *", () => {
   console.log(`running... ${dateTimeNow.toISOString()}.`);
 }, { timezone: process.env.TZ });
 
-cron.schedule("3 3,9,17,21 * * *", () => {
+cron.schedule("5 3,9,17,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();
