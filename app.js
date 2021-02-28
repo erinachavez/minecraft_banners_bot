@@ -1,6 +1,7 @@
 const express = require("express");
 const twitterAPI = require("node-twitter-api");
 const cron = require("node-cron");
+const bodyParser = require("body-parser");
 const sketch = require("./sketch");
 
 const app = express();
@@ -9,6 +10,8 @@ const server = app.listen(process.env.PORT || 3000, function() {
   sketch.setAppPort(port);
   console.log(`Minecraft Banners Bot listening at http://${server.address().address}:${port}`);
 });
+
+app.use(bodyParser.json())
 
 var twitter = new twitterAPI({
   consumerKey: process.env.CONSUMER_KEY,
@@ -30,7 +33,7 @@ app.post("/upload", (req, res) => {
         console.log(`UPLOAD SUCCESS ${response.statusCode}: ${responseBody.media_id_string}`);
       }
       else {
-        console.error(`UPLOAD ERROR ${response.statusCode}: ${responseBody.error}`);
+        console.error(`UPLOAD ERROR ${response.statusCode}: ${responseBody.errors[0].message}`);
       }
 
       res.send(response);
@@ -64,13 +67,13 @@ app.post("/status", (req, res) => {
 });
 
 
-cron.schedule("*/5 * * * *", () => {
-  var dateTimeNow = new Date(Date.now());
-  console.log(`running... ${dateTimeNow.toISOString()}.`);
-}, { timezone: process.env.TZ });
+// cron.schedule("*/5 * * * *", () => {
+//   var dateTimeNow = new Date(Date.now());
+//   console.log(`running... ${dateTimeNow.toISOString()}.`);
+// }, { timezone: process.env.TZ });
 
-cron.schedule("5 3,9,17,21 * * *", () => {
+// cron.schedule("5 3,9,17,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();
-}, { timezone: process.env.TZ });
+// }, { timezone: process.env.TZ });

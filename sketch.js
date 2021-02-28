@@ -25,14 +25,7 @@ function status(statusText, mediaId) {
     "statusText": statusText,
     "mediaId": mediaId,
   })
-  .then(function (response) {
-    if (response.data.statusCode == 200) {
-      console.log(`SUCCESS ${response.data.statusCode}: ${response.data.tweetId}`);
-    }
-    else {
-      console.error(`ERROR ${response.data.statusCode}: ${JSON.parse(response.data.body).errors[0].message}`);
-    }
-  })
+  .then(function (response) {})
   .catch(function (error) {
     console.log(error);
   });
@@ -41,16 +34,11 @@ function status(statusText, mediaId) {
 // Send banner image to be uploaded for tweet.
 p5.registerMethod("uploadMedia", function(blobDataUrl) {
   instance.post("/upload", {
-    "blobDataUrl": blobDataUrl
+    blobDataUrl: blobDataUrl
   })
   .then(function (response) {
-    let responseBody = JSON.parse(response.data.body);
-
     if (response.data.statusCode == 200) {
-      status(layers, responseBody.media_id_string);
-    }
-    else {
-      console.error(`ERROR ${response.data.statusCode}: ${responseBody.error}`);
+      status(layers, JSON.parse(response.data.body).media_id_string);
     }
   })
   .catch(function (error) {
