@@ -3,6 +3,9 @@ const dyes = require("./dyes");
 const bannerPatterns = require("./banner_patterns");
 const axios = require("axios");
 
+// Set up axios instance.
+const instance = axios.create({ baseURL: "https://minecraft-banners-bot.herokuapp.com"});
+
 const BANNER_WIDTH = 20;
 const BANNER_HEIGHT = 40;
 
@@ -17,7 +20,6 @@ const X_OFFSET = (CANVAS_SIZE - BANNER_BIT_WIDTH)/2;
 const Y_OFFSET = (CANVAS_SIZE - BANNER_BIT_HEIGHT)/2;
 
 var layers;
-var instance;
 
 // Send status text and twitter media id to be tweeted.
 function status(statusText, mediaId) {
@@ -46,6 +48,7 @@ p5.registerMethod("uploadMedia", function(blobDataUrl) {
   });
 });
 
+// Draw banner.
 function sketch(p) {
   p.setup = () => {
     let canvas = p.createCanvas(CANVAS_SIZE, CANVAS_SIZE);
@@ -100,8 +103,5 @@ function sketch(p) {
 module.exports = {
   drawBanner: function() {
     p5.createSketch(sketch);
-  },
-  setAppPort: function(port) {
-    instance = axios.create({ baseURL: `https://minecraft-banners-bot.herokuapp.com`});
   }
 }

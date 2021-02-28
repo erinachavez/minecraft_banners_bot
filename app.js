@@ -4,20 +4,22 @@ const cron = require("node-cron");
 const bodyParser = require("body-parser");
 const sketch = require("./sketch");
 
+// Setup server.
 const app = express();
 const server = app.listen(process.env.PORT || 3000, function() {
-  let port = server.address().port;
-  sketch.setAppPort(port);
-  console.log(`Minecraft Banners Bot listening at http://${server.address().address}:${port}`);
+  console.log(`Minecraft Banners Bot listening at http://${server.address().address}:${server.address().port}`);
 });
 
+// Require body parser to read api request body.
 app.use(bodyParser.json())
 
-var twitter = new twitterAPI({
+// Set twitter app credentials.
+const twitter = new twitterAPI({
   consumerKey: process.env.CONSUMER_KEY,
   consumerSecret: process.env.CONSUMER_SECRET
 });
 
+// Upload media to twitter.
 app.post("/upload", (req, res) => {
   twitter.uploadMedia(
     {
@@ -41,6 +43,7 @@ app.post("/upload", (req, res) => {
   );
 });
 
+// Post status to twitter.
 app.post("/status", (req, res) => {
   twitter.statuses(
     "update",
@@ -66,12 +69,13 @@ app.post("/status", (req, res) => {
   );
 });
 
-
+// Every 5 minutes log message.
 cron.schedule("*/5 * * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`running... ${dateTimeNow.toISOString()}.`);
 }, { timezone: process.env.TZ });
 
+// Draw a banner at 3, 9, 15, 21 o'clock EST.
 cron.schedule("0 3,9,15,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
