@@ -67,13 +67,13 @@ app.post("/status", (req, res) => {
 });
 
 
-// cron.schedule("*/5 * * * *", () => {
-//   var dateTimeNow = new Date(Date.now());
-//   console.log(`running... ${dateTimeNow.toISOString()}.`);
-// }, { timezone: process.env.TZ });
+cron.schedule("*/5 * * * *", () => {
+  var dateTimeNow = new Date(Date.now());
+  console.log(`running... ${dateTimeNow.toISOString()}.`);
+}, { timezone: process.env.TZ });
 
-// cron.schedule("5 3,9,17,21 * * *", () => {
+cron.schedule("0 3,9,15,21 * * *", () => {
   var dateTimeNow = new Date(Date.now());
   console.log(`\nBanner drawing started at ${dateTimeNow.toISOString()}.`);
   sketch.drawBanner();
-// }, { timezone: process.env.TZ });
+}, { timezone: process.env.TZ });
