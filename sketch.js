@@ -102,6 +102,6 @@ module.exports = {
     p5.createSketch(sketch);
   },
   setAppPort: function(port) {
-    instance = axios.create({ baseURL: `https://minecraft-banners-bot.herokuapp.com:${port}`});
+    instance = axios.create({ baseURL: `https://minecraft-banners-bot.herokuapp.com`});
   }
 }
